@@ -18,7 +18,13 @@ private String lname;
 private String email;   
 private String username;   
 private String type;   
-private String status;   
+private String status;  
+private String password;
+private String uimage;
+private static int userID;
+private static int patientID;
+
+
 
 
 private Session(){ 
@@ -88,6 +94,38 @@ private Session(){
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    public String getUimage() {
+        return uimage;
+    }
+
+    public void setUimage(String uimage) {
+        this.uimage = uimage;
+    }
+    
+    public static void setUserID(int id) {
+        userID = id;
+    }
+    
+    public static int getUserID() {
+        return userID;
+    }
+    
+    public static void setPatientID(int id) {
+        patientID = id;
+    }
+    
+    public static int getPatientID() {
+        return patientID;
     }
 
 

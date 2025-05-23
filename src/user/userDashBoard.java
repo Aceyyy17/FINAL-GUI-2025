@@ -6,12 +6,13 @@
 package user;
 
 
+import user.userForm;
 import mainApp.*;
 import admin.*;
 import config.Session;
 import java.awt.Color;
 import javax.swing.JOptionPane;
-import user.userDashBoard;
+import patient.patientPage;
 
 /**
  *
@@ -53,11 +54,12 @@ public class userDashBoard extends javax.swing.JFrame {
         acc_lname = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         acc_fname = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        minimize = new javax.swing.JLabel();
+        close = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -75,6 +77,9 @@ public class userDashBoard extends javax.swing.JFrame {
 
         patients.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         patients.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                patientsMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 patientsMouseEntered(evt);
             }
@@ -167,31 +172,36 @@ public class userDashBoard extends javax.swing.JFrame {
         acc_fname.setText("Admin");
         jPanel1.add(acc_fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 90, 40));
 
-        jLabel3.setText("jLabel3");
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 90, 70));
-
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Patient Diagnose System");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 160, -1));
+
+        minimize.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        minimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        minimize.setText("—");
+        minimize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                minimizeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                minimizeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                minimizeMouseExited(evt);
+            }
+        });
+        jPanel1.add(minimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 40, 40));
+
+        close.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        close.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        close.setText("X");
+        close.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeMouseClicked(evt);
+            }
+        });
+        jPanel1.add(close, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, 40, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -239,17 +249,33 @@ public class userDashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_accountMouseExited
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        Session ses = Session.getInstance(); 
-        if(ses.getUid() == 0){
-            JOptionPane.showMessageDialog(null, "No account, login first!");
-            userDashBoard lf = new userDashBoard();
-            lf.setVisible(true); 
-            this.dispose(); 
-        }else{
-             acc_fname.setText(""+ses.getFname());
-             acc_lname.setText(""+ses.getLname());
-        }
+        
     }//GEN-LAST:event_formWindowActivated
+
+    private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
+        setState(ICONIFIED);
+    }//GEN-LAST:event_minimizeMouseClicked
+
+    private void minimizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseEntered
+
+    }//GEN-LAST:event_minimizeMouseEntered
+
+    private void minimizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_minimizeMouseExited
+
+    private void closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseClicked
+        int a = JOptionPane.showConfirmDialog(null, "Do you want to Exit?");
+        if (a == JOptionPane. YES_OPTION){
+            System.exit(0);
+        }
+    }//GEN-LAST:event_closeMouseClicked
+
+    private void patientsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_patientsMouseClicked
+        userDashBoard udb = new userDashBoard();
+        udb.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_patientsMouseClicked
 
     /**
      * @param args the command line arguments
@@ -353,11 +379,11 @@ public class userDashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel acc_fname;
     private javax.swing.JLabel acc_lname;
     private javax.swing.JPanel account;
+    private javax.swing.JLabel close;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
@@ -365,7 +391,7 @@ public class userDashBoard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.JLabel minimize;
     private javax.swing.JPanel patients;
     private javax.swing.JPanel users;
     // End of variables declaration//GEN-END:variables
