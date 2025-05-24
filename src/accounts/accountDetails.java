@@ -140,6 +140,7 @@ public class accountDetails extends javax.swing.JFrame {
         accid = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -207,12 +208,12 @@ public class accountDetails extends javax.swing.JFrame {
         fullname.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         fullname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         fullname.setText("Full Name");
-        jPanel2.add(fullname, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 180, 40));
+        jPanel2.add(fullname, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 170, 40));
 
         accid.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         accid.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         accid.setText("ID");
-        jPanel2.add(accid, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 40, 30));
+        jPanel2.add(accid, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 30, 30));
 
         jButton2.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
         jButton2.setText("CHANGE PASS");
@@ -221,11 +222,20 @@ public class accountDetails extends javax.swing.JFrame {
                 jButton2MouseClicked(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 280, 130, 34));
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 130, 34));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setText("Account ID:");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 90, 30));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 90, 30));
+
+        jButton3.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
+        jButton3.setText(" RECOVERY");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 130, 34));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 170, 410));
 
@@ -389,6 +399,12 @@ public class accountDetails extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_closeMouseClicked
 
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        passRecover pr = new passRecover();
+        pr.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton3MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -444,6 +460,7 @@ public class accountDetails extends javax.swing.JFrame {
     private javax.swing.JLabel image;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

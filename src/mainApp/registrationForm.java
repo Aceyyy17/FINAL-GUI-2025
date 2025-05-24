@@ -187,6 +187,8 @@ public class registrationForm extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        hide = new javax.swing.JLabel();
+        show = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -261,6 +263,30 @@ public class registrationForm extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(153, 153, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        hide.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        hide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hidden.png"))); // NOI18N
+        hide.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                hideMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                hideMouseReleased(evt);
+            }
+        });
+        jPanel3.add(hide, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 270, 30, 40));
+
+        show.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        show.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eye.png"))); // NOI18N
+        show.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                showMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                showMouseReleased(evt);
+            }
+        });
+        jPanel3.add(show, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 270, 30, 40));
+
         jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel8.setText("First Name:");
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 90, 40));
@@ -290,19 +316,19 @@ public class registrationForm extends javax.swing.JFrame {
         jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 90, 50));
 
         eml.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jPanel3.add(eml, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 220, 40));
+        jPanel3.add(eml, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 230, 40));
 
         pass.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jPanel3.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 220, 40));
+        jPanel3.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 230, 40));
 
         fn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jPanel3.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 220, 40));
+        jPanel3.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 230, 40));
 
         ln.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jPanel3.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 220, 40));
+        jPanel3.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 230, 40));
 
         un.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jPanel3.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 220, 40));
+        jPanel3.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 230, 40));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -437,35 +463,38 @@ public class registrationForm extends javax.swing.JFrame {
      }
       else if (un.getText().equals(eml.getText())){
      JOptionPane.showMessageDialog(null, "username and email should not match!");
-     } else{
-           
-           
-           try{
-           String password = passwordHasher.hashPassword(pass.getText());
-           
-           if( dbc.insertData("INSERT INTO tbl_users (u_fname, u_lname, u_email, u_username, u_password, u_type, u_status, u_image) "
-    + "VALUES ('"+fn.getText()+"', '"+ln.getText()+"', '"+eml.getText()+"', '"+un.getText()+"', '"+password+"', '"+type.getSelectedItem()+"', 'Pending', '"+destination+"')"))
+     } else {
 
-         {
-           try{
-             Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
-             JOptionPane.showMessageDialog(null, "Inserted Successfully!");
-            loginForm lf = new loginForm();
-            lf.setVisible(true);
-            this.dispose();
-           }catch(IOException ex){
-                System.out.println("Insert Image Error: "+ ex);
-            }
-           
-        } else{
-          JOptionPane.showMessageDialog(null, "Connection Failed!");
-        }  
-       }catch(NoSuchAlgorithmException ex)
-       {
-           System.out.println(""+ex);
-       }
-           
-        }
+               
+               if (selectedFile == null || destination.isEmpty()) {
+                   JOptionPane.showMessageDialog(null, "Please choose an image before submitting!");
+                   return;
+               }
+
+               try {
+                   String password = passwordHasher.hashPassword(pass.getText());
+
+                   if (dbc.insertData("INSERT INTO tbl_users (u_fname, u_lname, u_email, u_username, u_password, u_type, u_status, u_image) "
+                           + "VALUES ('" + fn.getText() + "', '" + ln.getText() + "', '" + eml.getText() + "', '" + un.getText() + "', '" + password + "', '" + type.getSelectedItem() + "', 'Pending', '" + destination + "')")) {
+
+                       try {
+                           Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
+                           JOptionPane.showMessageDialog(null, "Inserted Successfully!");
+
+                           loginForm lf = new loginForm();
+                           lf.setVisible(true);
+                           this.dispose();
+                       } catch (IOException ex) {
+                           System.out.println("Insert Image Error: " + ex);
+                       }
+
+                   } else {
+                       JOptionPane.showMessageDialog(null, "Connection Failed!");
+                   }
+               } catch (NoSuchAlgorithmException ex) {
+                   System.out.println("" + ex);
+               }
+           }
             
      
     }//GEN-LAST:event_createMouseClicked
@@ -522,6 +551,27 @@ public class registrationForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_closeMouseClicked
 
+    private void hideMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hideMousePressed
+        show.setVisible(true);
+        hide.setVisible(false);
+        pass.setEchoChar((char) 0);
+
+    }//GEN-LAST:event_hideMousePressed
+
+    private void hideMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hideMouseReleased
+        show.setVisible(false);
+        hide.setVisible(true);
+        pass.setEchoChar('*');
+    }//GEN-LAST:event_hideMouseReleased
+
+    private void showMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showMousePressed
+
+    }//GEN-LAST:event_showMousePressed
+
+    private void showMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showMouseReleased
+
+    }//GEN-LAST:event_showMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -565,6 +615,7 @@ public class registrationForm extends javax.swing.JFrame {
     private javax.swing.JPanel create;
     public javax.swing.JTextField eml;
     public javax.swing.JTextField fn;
+    private javax.swing.JLabel hide;
     private javax.swing.JLabel image;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -586,6 +637,7 @@ public class registrationForm extends javax.swing.JFrame {
     public javax.swing.JPasswordField pass;
     private javax.swing.JButton remove;
     private javax.swing.JButton select;
+    private javax.swing.JLabel show;
     public javax.swing.JComboBox<String> type;
     private javax.swing.JTextField un;
     // End of variables declaration//GEN-END:variables

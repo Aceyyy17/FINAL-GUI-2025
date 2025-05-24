@@ -6,21 +6,17 @@
 package accounts;
 
 
-import admin.*;
-import config.Session;
 import config.dbConnector;
 import config.passwordHasher;
 import java.awt.Color;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import mainApp.loginForm;
 
-import user.userDashBoard;
 
 /**
  *
@@ -38,30 +34,7 @@ public class forgotPassword extends javax.swing.JFrame {
     Color navColor = new Color(153,153,255);
     Color HoverColor = new Color(204,204,204);
     
-    public static String uidd;
-    public boolean duplicatecheck(){
-            dbConnector dbc = new dbConnector();
-            Session ses = Session.getInstance();
-            int uid = ses.getUid();
-            int userid ;
-
-            try{
-                String query = "SELECT * FROM tbl_recovery WHERE u_id = '"+ uid +"'";
-                ResultSet resultSet = dbc.getData(query);
-            if (resultSet.next()) {
-                 uidd = resultSet.getString("u_id");
-                return true;
-            }else {
-                 return false;
-            }
-            } catch (SQLException ex) {
-                System.out.println(""+ex);
-                return false;
-            }
-
-        }
-    
-     static String q1, q2, uname, uid;
+    static String q1, q2, uname, uid;
 
 public boolean recoverycheck() {
     dbConnector dbc = new dbConnector();
@@ -101,7 +74,6 @@ public boolean recoverycheck() {
     }
 }
     
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,15 +91,15 @@ public boolean recoverycheck() {
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        cancel = new javax.swing.JButton();
-        save = new javax.swing.JButton();
+        clear = new javax.swing.JButton();
+        proceed = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         un = new javax.swing.JTextField();
         qt1 = new javax.swing.JTextField();
         qt2 = new javax.swing.JTextField();
         message = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        back = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
         close = new javax.swing.JLabel();
@@ -170,33 +142,33 @@ public boolean recoverycheck() {
         jLabel7.setText("Username:");
         jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 200, 30));
 
-        cancel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cancel.setText("CLEAR ");
-        cancel.addMouseListener(new java.awt.event.MouseAdapter() {
+        clear.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        clear.setText("CLEAR ");
+        clear.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cancelMouseClicked(evt);
+                clearMouseClicked(evt);
             }
         });
-        jPanel3.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 90, 30));
+        jPanel3.add(clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 90, 30));
 
-        save.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        save.setText("SAVE");
-        save.addMouseListener(new java.awt.event.MouseAdapter() {
+        proceed.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        proceed.setText("PROCEED");
+        proceed.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                saveMouseClicked(evt);
+                proceedMouseClicked(evt);
             }
         });
-        save.addActionListener(new java.awt.event.ActionListener() {
+        proceed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveActionPerformed(evt);
+                proceedActionPerformed(evt);
             }
         });
-        jPanel3.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 280, 100, 30));
+        jPanel3.add(proceed, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 280, 100, 30));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Patient Diagnose System");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 270, 50));
+        jLabel4.setText("Note: Answer the following to retrieve your password ");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 470, 50));
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel8.setText("What's your birthmonth?");
@@ -230,14 +202,14 @@ public boolean recoverycheck() {
         message.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel3.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 280, 30));
 
-        jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton1.setText("BACK");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        back.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        back.setText("BACK");
+        back.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                backMouseClicked(evt);
             }
         });
-        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 90, 30));
+        jPanel3.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 90, 30));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 510, 410));
 
@@ -291,32 +263,42 @@ public boolean recoverycheck() {
        
     }//GEN-LAST:event_formWindowActivated
 
-    private void cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseClicked
+    private void clearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearMouseClicked
         qt1.setText("");
         qt2.setText("");
-    }//GEN-LAST:event_cancelMouseClicked
+    }//GEN-LAST:event_clearMouseClicked
 
-    private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
-              dbConnector dbc = new dbConnector();
-        Session ses = Session.getInstance();
-        String question1, question2; 
-        try {
-        question1 = passwordHasher.hashPassword(qt1.getText());
-        question2 = passwordHasher.hashPassword(qt2.getText());
-        if(qt1.getText().isEmpty()||qt2.getText().isEmpty()){
-                JOptionPane.showMessageDialog(null, "All questions should be answered!");
-                return;
-        }if (duplicatecheck()){
-            dbc.insertData("UPDATE tbl_recover SET question1 = '" + question1 + "',question2 = '" + question2 + "' WHERE u_id = '" +ses.getUid()+ "'");
-            JOptionPane.showMessageDialog(null, "Recovery updated successfully.");
-        }else{    
-            dbc.insertData("INSERT INTO tbl_recover (u_id, answer1, answer2)VALUES ('"+ses.getUid()+"','"+question1+"', '"+question2+"')");
-            message.setText("Added successfully!!");
-            }
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(forgotPassword.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_saveMouseClicked
+    private void proceedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_proceedMouseClicked
+            if (un.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Enter username.");
+            return;
+             }
+
+           if(recoverycheck()){
+                try {
+                    String answer1 = passwordHasher.hashPassword(qt1.getText());
+                    String answer2 = passwordHasher.hashPassword(qt2.getText());
+                    
+            if(!(answer1.equals(q1))&!(answer2.equals(q2))){
+                message.setText("All answers are incorrect!");
+            } else if(!(answer1.equals(q1))){
+                message.setText("Incorrect answer in question 1");
+                qt1.setText("");
+           } else if(!(answer2.equals(q2))){
+                message.setText("Incorrect answer in question 2");
+                qt2.setText("");
+           } else{
+                this.dispose();
+                newPassword np = new newPassword();
+                np.setVisible(true);
+                this.dispose();
+
+           }      
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(passRecover.class.getName()).log(Level.SEVERE, null, ex);
+                }
+           }
+    }//GEN-LAST:event_proceedMouseClicked
 
     private void unActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unActionPerformed
         // TODO add your handling code here:
@@ -330,15 +312,15 @@ public boolean recoverycheck() {
         // TODO add your handling code here:
     }//GEN-LAST:event_qt2ActionPerformed
 
-    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+    private void proceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceedActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_saveActionPerformed
+    }//GEN-LAST:event_proceedActionPerformed
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-       accountDetails ad = new accountDetails();
-       ad.setVisible(true);
+    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
+      loginForm lf = new loginForm();
+       lf.setVisible(true);
        this.dispose();
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_backMouseClicked
 
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
         setState(ICONIFIED);
@@ -402,9 +384,9 @@ public boolean recoverycheck() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancel;
+    private javax.swing.JButton back;
+    private javax.swing.JButton clear;
     private javax.swing.JLabel close;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -418,9 +400,9 @@ public boolean recoverycheck() {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel message;
     private javax.swing.JLabel minimize;
+    private javax.swing.JButton proceed;
     private javax.swing.JTextField qt1;
     private javax.swing.JTextField qt2;
-    private javax.swing.JButton save;
     private javax.swing.JTextField un;
     // End of variables declaration//GEN-END:variables
 }

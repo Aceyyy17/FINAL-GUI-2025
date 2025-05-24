@@ -6,13 +6,20 @@
 package user;
 
 
+import accounts.accountDetails;
 import user.userForm;
 import mainApp.*;
 import admin.*;
 import config.Session;
+import config.dbConnector;
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
+import patient.patientForm;
 import patient.patientPage;
+import userAddPatient.addPatientPage;
 
 /**
  *
@@ -20,15 +27,28 @@ import patient.patientPage;
  */
 public class userDashBoard extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AdminDashBoard
-     */
+   
     public userDashBoard() {
         initComponents();
+         totalPatients();
     }
     
     Color navColor = new Color(153,153,255);
     Color HoverColor = new Color(204,204,204);
+    
+     public void totalPatients(){
+        try{
+            dbConnector dbc = new dbConnector();
+            ResultSet rs = dbc.getData("SELECT COUNT(*) AS NROWS FROM tbl_patients");
+            int rowCount = 0;
+            if (rs.next()) {
+                rowCount = rs.getInt("NROWS");
+            }
+            totalPatients.setText(""+rowCount);
+        }catch(SQLException ex){
+            System.out.println("Errors: "+ex.getMessage());
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,19 +64,18 @@ public class userDashBoard extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         patients = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        users = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
         account = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        acc_lname = new javax.swing.JLabel();
+        FLname = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        acc_fname = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        totalPatients = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
         close = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -73,6 +92,11 @@ public class userDashBoard extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
         jButton1.setText("LOGOUT");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 93, 34));
 
         patients.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -94,31 +118,13 @@ public class userDashBoard extends javax.swing.JFrame {
         jLabel5.setText("PATIENTS");
         patients.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 0, 70, 30));
 
-        jPanel2.add(patients, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 110, 30));
-
-        users.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        users.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                usersMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                usersMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                usersMouseExited(evt);
-            }
-        });
-        users.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("USERS");
-        users.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 0, 70, 30));
-
-        jPanel2.add(users, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 110, 30));
+        jPanel2.add(patients, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 110, 30));
 
         account.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         account.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                accountMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 accountMouseEntered(evt);
             }
@@ -135,47 +141,60 @@ public class userDashBoard extends javax.swing.JFrame {
 
         jPanel2.add(account, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 110, 30));
 
+        FLname.setFont(new java.awt.Font("Malgun Gothic", 1, 14)); // NOI18N
+        FLname.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        FLname.setText("Admin");
+        jPanel2.add(FLname, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 160, 40));
+
+        jLabel2.setFont(new java.awt.Font("Malgun Gothic", 1, 14)); // NOI18N
+        jLabel2.setText("Hello,");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 50, 40));
+
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 180, 410));
 
         jPanel3.setBackground(new java.awt.Color(153, 153, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("USER DASHBOARD");
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 560, 70));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Total No. of Patients");
+
+        totalPatients.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        totalPatients.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        totalPatients.setText("0");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 370, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(153, 153, 153)
+                        .addComponent(totalPatients, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 240, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(totalPatients, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 370, 240));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("USER DASHBOARD");
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 70));
-
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 560, 410));
-
-        acc_lname.setFont(new java.awt.Font("Malgun Gothic", 1, 18)); // NOI18N
-        acc_lname.setText("Admin");
-        jPanel1.add(acc_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, 90, 40));
-
-        jLabel2.setFont(new java.awt.Font("Malgun Gothic", 1, 18)); // NOI18N
-        jLabel2.setText("Hello,");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
-
-        acc_fname.setFont(new java.awt.Font("Malgun Gothic", 1, 18)); // NOI18N
-        acc_fname.setText("Admin");
-        jPanel1.add(acc_fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 90, 40));
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Patient Diagnose System");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 160, -1));
 
         minimize.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         minimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -203,6 +222,11 @@ public class userDashBoard extends javax.swing.JFrame {
         });
         jPanel1.add(close, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, 40, 40));
 
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Patient Diagnose System");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 420, 70));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -217,20 +241,6 @@ public class userDashBoard extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void usersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersMouseClicked
-        userForm uf = new userForm();
-        uf.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_usersMouseClicked
-
-    private void usersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersMouseEntered
-        users.setBackground(navColor);
-    }//GEN-LAST:event_usersMouseEntered
-
-    private void usersMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersMouseExited
-        users.setBackground(HoverColor);
-    }//GEN-LAST:event_usersMouseExited
 
     private void patientsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_patientsMouseEntered
         patients.setBackground(navColor);
@@ -249,7 +259,15 @@ public class userDashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_accountMouseExited
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        
+         Session ses = Session.getInstance(); 
+         if(ses.getUid() == 0){
+            JOptionPane.showMessageDialog(null, "No account, login first!");
+            loginForm lf = new loginForm();
+            lf.setVisible(true); 
+            this.dispose(); 
+        }else{     
+        FLname.setText("  "+ses.getFname()+" "+ses.getLname());
+        }
     }//GEN-LAST:event_formWindowActivated
 
     private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
@@ -272,10 +290,28 @@ public class userDashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_closeMouseClicked
 
     private void patientsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_patientsMouseClicked
-        userDashBoard udb = new userDashBoard();
-        udb.setVisible(true);
+        addPatientPage app = new addPatientPage();
+        app.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_patientsMouseClicked
+
+    private void accountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountMouseClicked
+      userAccountDetails uad = new userAccountDetails();
+      uad.setVisible(true);
+      this.dispose();
+    }//GEN-LAST:event_accountMouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+         dbConnector dbc = new dbConnector();
+         Session ses= Session.getInstance();
+         
+        String action = "User with ID "+ses.getUid()+" logging out";
+        dbc.insertData("INSERT INTO tbl_logs (user_id, Action, date) VALUES ('" +ses.getUid() + "', '" + action + "', '" + LocalDateTime.now() + "')");
+        
+        loginForm lf = new loginForm();
+        lf.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -376,23 +412,22 @@ public class userDashBoard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel acc_fname;
-    private javax.swing.JLabel acc_lname;
+    private javax.swing.JLabel FLname;
     private javax.swing.JPanel account;
     private javax.swing.JLabel close;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel minimize;
     private javax.swing.JPanel patients;
-    private javax.swing.JPanel users;
+    private javax.swing.JLabel totalPatients;
     // End of variables declaration//GEN-END:variables
 }

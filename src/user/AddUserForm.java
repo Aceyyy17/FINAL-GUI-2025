@@ -5,9 +5,13 @@
  */
 package user;
 
+import config.Session;
 import config.dbConnector;
+import config.passwordHasher;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,15 +19,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import mainApp.loginForm;
 
 
 public class AddUserForm extends javax.swing.JFrame {
@@ -36,11 +41,11 @@ public class AddUserForm extends javax.swing.JFrame {
     Color navColor = new Color(153,153,255);
     Color HoverColor = new Color(204,204,204);
 
-    
-     public String destination = "";
-    File selectedFile;
-    public String oldpath;
-    public String path;
+        public static String umail,usname;
+        public String destination = "";
+        File selectedFile;
+        public String oldpath;
+        public String path;
     
     public int FileExistenceChecker(String path){
       File file = new File(path);
@@ -116,50 +121,70 @@ public class AddUserForm extends javax.swing.JFrame {
         }
    }
     
-    public static String email, un;
-    
-    public boolean isValidEmail(String email) {
-        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.com$";
-        Pattern pattern = Pattern.compile(emailRegex);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+    public void chooseImage() {
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Choose Profile Image");
+    int result = fileChooser.showOpenDialog(null); 
+    if (result == JFileChooser.APPROVE_OPTION) {
+        selectedFile = fileChooser.getSelectedFile();
+
+     
+        String folderPath = "src/userimages/";
+        new File(folderPath).mkdirs();
+        destination = folderPath + selectedFile.getName();
+
+  
+
+        JOptionPane.showMessageDialog(null, "Image selected: " + selectedFile.getName());
+    } else {
+        JOptionPane.showMessageDialog(null, "No image selected.");
     }
+}
     
-    public boolean duplicateCheck(){
+ 
+     public boolean duplicatecheck(){
         dbConnector dbc = new dbConnector();
-        
-        if (!isValidEmail(mail.getText())) {
-            JOptionPane.showMessageDialog(null, "Invalid email format! Please enter a valid email.");
-            mail.setText("");
-            return true;
-        }
-        
-        try{
-            String query = "SELECT * FROM  tbl_users WHERE u_username =   '" + uname.getText() + "'  OR u_email = '" + mail.getText() + "'";
+   try {
+            String query = "SELECT * FROM tbl_users WHERE u_username = '"+ uname.getText()+"'OR u_email ='"+mail.getText() +"'";
             ResultSet resultSet = dbc.getData(query);
             
             if(resultSet.next()){
-                 email = resultSet.getString("u_email");
-                 if(email.equals(mail.getText())){
-                 JOptionPane.showConfirmDialog(null, "Email is already used!");
-                 mail.setText("");
-                 }
-                 un = resultSet.getString("u_username");
-                 if(un.equals(uname.getText())){
-                 JOptionPane.showConfirmDialog(null, "Username is already used!");
-                 uname.setText("");
-                 }
-                 return true;
-            }else{
+                umail= resultSet.getString("u_email");
+                if(umail.equals(mail.getText())){
+                JOptionPane.showMessageDialog(null,"email already existed!");
+                mail.setText("");
+                }
+                 usname= resultSet.getString("u_username");
+                if(usname.equals(uname.getText())){
+                JOptionPane.showMessageDialog(null,"username already existed!");
+                uname.setText("");
+                }
+                return true;
+            }
+            else{
                 return false;
-        }
+            }
             
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             System.out.println(""+ex);
             return false;
         }
-             
     }
+   
+    public boolean isValidEmail(String email) {
+    
+    String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+
+    if (email == null || !email.matches(emailRegex)) {
+        JOptionPane.showMessageDialog(null, 
+            "(e.g., user@example.com).",
+            "Invalid Email!",
+            JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    return true;
+}
 
     public boolean updateCheck(){
         dbConnector dbc = new dbConnector();
@@ -175,13 +200,13 @@ public class AddUserForm extends javax.swing.JFrame {
             
             if(resultSet.next()){
                 
-                 email = resultSet.getString("u_email");
-                 if(email.equals(mail.getText())){
+                 umail = resultSet.getString("u_email");
+                 if(umail.equals(mail.getText())){
                  JOptionPane.showConfirmDialog(null, "Email is already used!");
                  mail.setText("");
                  }
-                 un = resultSet.getString("u_username");
-                 if(un.equals(uname.getText())){
+                 usname = resultSet.getString("u_username");
+                 if(usname.equals(uname.getText())){
                  JOptionPane.showConfirmDialog(null, "Username is already used!");
                  uname.setText("");
                  }
@@ -206,7 +231,6 @@ public class AddUserForm extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         addUser = new javax.swing.JButton();
-        updateUser = new javax.swing.JButton();
         uid = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -223,13 +247,17 @@ public class AddUserForm extends javax.swing.JFrame {
         image = new javax.swing.JLabel();
         select = new javax.swing.JButton();
         remove = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         minimize1 = new javax.swing.JLabel();
         close = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -243,7 +271,7 @@ public class AddUserForm extends javax.swing.JFrame {
                 jButton1MouseClicked(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 93, 34));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 100, 34));
 
         addUser.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         addUser.setText("ADD");
@@ -252,16 +280,7 @@ public class AddUserForm extends javax.swing.JFrame {
                 addUserMouseClicked(evt);
             }
         });
-        jPanel2.add(addUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 100, 50));
-
-        updateUser.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        updateUser.setText("UPDATE");
-        updateUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                updateUserMouseClicked(evt);
-            }
-        });
-        jPanel2.add(updateUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 100, 50));
+        jPanel2.add(addUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 100, 50));
 
         uid.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         uid.setText("ID");
@@ -387,16 +406,6 @@ public class AddUserForm extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 650, 440));
 
-        jLabel2.setFont(new java.awt.Font("Malgun Gothic", 1, 18)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Adding User...");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 130, 40));
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Patient Diagnose System");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 160, -1));
-
         minimize1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         minimize1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         minimize1.setText("—");
@@ -422,6 +431,11 @@ public class AddUserForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(close, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 0, 40, 40));
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Patient Diagnose System");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 480, 70));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -513,73 +527,60 @@ public class AddUserForm extends javax.swing.JFrame {
         pass.setEchoChar('*');
     }//GEN-LAST:event_hideMouseReleased
 
-    private void updateUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateUserMouseClicked
-        if(fname.getText().isEmpty() || lname.getText().isEmpty() || mail.getText().isEmpty() || uname.getText().isEmpty() || pass.getText().isEmpty())
-            {
-                JOptionPane.showMessageDialog(null, "All fields are required!");
-            }else if(pass.getText().length() < 8) {
-
-                JOptionPane.showMessageDialog(null, "Password too short. Please enter at least 8 characters above!");
-                pass.setText("");
-            }else if(updateCheck()){
-                System.out.println("Duplicate is exist");
-            }
-            else{
-
-            dbConnector dbc = new dbConnector();
-            dbc.updateData("UPDATE tbl_users SET u_fname = '"+fname.getText()+"', u_lname = '"+lname.getText()+"', u_email = '"+mail.getText()+"', u_username = '"+uname.getText()+"', "
-                            + "u_password = '"+pass.getText()+"', u_type = '"+type.getSelectedItem()+"', "
-                            + " u_status = '"+ustat.getSelectedItem()+"', u_image = '"+destination+"'  WHERE u_id = '"+uid.getText()+"'");
-            
-            if(destination.isEmpty()){
-            File existingFile = new File(oldpath);
-            if(existingFile.exists()){
-            existingFile.delete();
-            }
-            }else{
-            if(!(oldpath.equals(path))){
-            imageUpdater(oldpath,path);
-            
-            }
-            }
-            
-            userForm uf = new userForm();
-            uf.setVisible(true);
-            this.dispose();
-            }
-    }//GEN-LAST:event_updateUserMouseClicked
-
     private void addUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addUserMouseClicked
-       if(fname.getText().isEmpty() || lname.getText().isEmpty() || mail.getText().isEmpty() || uname.getText().isEmpty() || pass.getText().isEmpty())
-        {
-            JOptionPane.showMessageDialog(null, "All fields are required!");
-        }else if(pass.getText().length() < 8) {
+                    dbConnector dbc = new dbConnector();
 
-            JOptionPane.showMessageDialog(null, "Password too short. Please enter at least 8 characters above!");
-            pass.setText("");
-        }else if(duplicateCheck()){
-            System.out.println("Duplicate is exist");
-        }
-        else{
-            dbConnector dbc = new dbConnector();
-            if( dbc.insertData(" INSERT INTO tbl_users ( u_fname, u_lname, u_email, u_username, u_password, u_type, u_status, u_image) "
-                + "VALUES ('"+fname.getText()+"', '"+lname.getText()+"', '"+mail.getText()+"', '"+uname.getText()+"', '"+pass.getText()+"', '"+type.getSelectedItem()+"', '"+ustat.getSelectedItem()+"', '"+destination+"') "))
-        {
-            try{
-            Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
-            JOptionPane.showMessageDialog(null, "Inserted Successfully!");
-            userForm uf = new userForm();
-            uf.setVisible(true);
-            this.dispose();
-            
-            }catch(IOException ex){
-                System.out.println("Insert Image Error: "+ ex);
-            }
-            
-        } else{
-            JOptionPane.showMessageDialog(null, "Connection Failed!");
-        }
-        }
+                   String emailInput = mail.getText();
+                   if(fname.getText() .isEmpty() || lname.getText().isEmpty() ||uname.getText() .isEmpty() ||mail.getText() .isEmpty() ||pass.getText().isEmpty()
+                   )
+
+                       {
+                           JOptionPane.showMessageDialog(null,"All field are required!");     
+                       }
+                       else if (!isValidEmail(emailInput)) {
+                          } 
+
+                       else if(duplicatecheck()){
+                              System.out.println("duplicate exist!");
+
+                       }
+                        else if (!(pass.getText().length() >= 8)){ 
+                       JOptionPane.showMessageDialog(null,"password should have 8 characters and above!");
+                       }
+                        else if (uname.getText().equals(mail.getText())){
+                       JOptionPane.showMessageDialog(null, "username and email should not match!");
+                       } else {
+
+               
+               if (selectedFile == null || destination.isEmpty()) {
+                   JOptionPane.showMessageDialog(null, "Please choose an image before submitting!");
+                   return;
+               }
+
+               try {
+                   String password = passwordHasher.hashPassword(pass.getText());
+
+                   if (dbc.insertData("INSERT INTO tbl_users (u_fname, u_lname, u_email, u_username, u_password, u_type, u_status, u_image) "
+                           + "VALUES ('" + fname.getText() + "', '" + lname.getText() + "', '" + mail.getText() + "', '" + uname.getText() + "', '" + password + "', '" + type.getSelectedItem() + "', 'Pending', '" + destination + "')")) {
+
+                       try {
+                           Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
+                           JOptionPane.showMessageDialog(null, "Inserted Successfully!");
+
+                           loginForm lf = new loginForm();
+                           lf.setVisible(true);
+                           this.dispose();
+                       } catch (IOException ex) {
+                           System.out.println("Insert Image Error: " + ex);
+                       }
+
+                   } else {
+                       JOptionPane.showMessageDialog(null, "Connection Failed!");
+                   }
+               } catch (NoSuchAlgorithmException ex) {
+                   System.out.println("" + ex);
+               }
+           }
     }//GEN-LAST:event_addUserMouseClicked
 
     private void minimize1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimize1MouseClicked
@@ -601,6 +602,16 @@ public class AddUserForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_closeMouseClicked
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+            Session ses = Session.getInstance(); 
+            if(ses.getUid() == 0){
+            JOptionPane.showMessageDialog(null, "No account, login first!");
+            loginForm lf = new loginForm();
+            lf.setVisible(true); 
+            this.dispose(); 
+            }
+    }//GEN-LAST:event_formWindowActivated
+        
     /**
      * @param args the command line arguments
      */
@@ -645,7 +656,6 @@ public class AddUserForm extends javax.swing.JFrame {
     public javax.swing.JLabel image;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -661,7 +671,6 @@ public class AddUserForm extends javax.swing.JFrame {
     public javax.swing.JComboBox<String> type;
     public javax.swing.JLabel uid;
     public javax.swing.JTextField uname;
-    public javax.swing.JButton updateUser;
     public javax.swing.JComboBox<String> ustat;
     // End of variables declaration//GEN-END:variables
 }

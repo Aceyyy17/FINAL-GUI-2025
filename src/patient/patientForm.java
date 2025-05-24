@@ -172,12 +172,11 @@ public class patientForm extends javax.swing.JFrame {
         p_lname = new javax.swing.JTextField();
         address = new javax.swing.JTextField();
         gender = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
         close = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         p_id = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -270,11 +269,6 @@ public class patientForm extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 560, 410));
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Patient Diagnose System");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 160, -1));
-
         minimize.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         minimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         minimize.setText("—");
@@ -301,18 +295,18 @@ public class patientForm extends javax.swing.JFrame {
         });
         jPanel1.add(close, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, 40, 40));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("PATIENT FORM");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 340, 70));
-
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Account ID:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 90, 30));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 90, 30));
 
         p_id.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         p_id.setText("ID");
-        jPanel1.add(p_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 30, 30));
+        jPanel1.add(p_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 30, 30));
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Patient Diagnose System");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 460, 70));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -401,9 +395,9 @@ public class patientForm extends javax.swing.JFrame {
     }//GEN-LAST:event_updatePatientMouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        userForm uf = new userForm();
-        uf.setVisible(true);
-        this.dispose();
+       patientPage pp = new patientPage();
+       pp.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**
@@ -462,7 +456,6 @@ public class patientForm extends javax.swing.JFrame {
     private javax.swing.JLabel close;
     public javax.swing.JComboBox<String> gender;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;

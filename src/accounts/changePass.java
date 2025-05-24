@@ -253,8 +253,9 @@ public class changePass extends javax.swing.JFrame {
             if (!newPassString.equals(conPassString)) {
                 JOptionPane.showMessageDialog(this, "Your New Password Do not Match!");
             } else {
-            String npass = passwordHasher.hashPassword(newPassString);
-            dbc.updateData("UPDATE tbl_users SET u_password = '" + npass + "'");
+            String newpass = passwordHasher.hashPassword(newPassString);
+            dbc.updateData("UPDATE tbl_users SET u_password = '" + newpass + "' WHERE u_id = '" + ses.getUid() + "'");
+
 
             JOptionPane.showMessageDialog(null, "Password Updated Successfully!");
 

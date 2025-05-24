@@ -7,6 +7,7 @@ package mainApp;
 
 
 import accounts.accountDetails;
+import accounts.forgotPassword;
 import accounts.passRecover;
 import admin.*;
 import config.Session;
@@ -278,8 +279,9 @@ public class loginForm extends javax.swing.JFrame {
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         this.dispose();
-        passRecover pr = new passRecover();
-        pr.setVisible(true);
+        forgotPassword fp = new forgotPassword();
+        fp.setVisible(true);
+        
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
@@ -295,27 +297,31 @@ public class loginForm extends javax.swing.JFrame {
                 if(!status.equals("Active")){
                         JOptionPane.showMessageDialog(null,"Inactive account, please contact the admin!");
                 }else{
-                 if(type.equals("Admin")){
-                    JOptionPane.showMessageDialog(null," Login Success!");
-                    AdminDashBoard adb = new AdminDashBoard();
-                    adb.setVisible(true);
-                    this.dispose();    
-                      
-                      String action = "User with ID "+uid+" logged in";
-                      dbc.insertData("INSERT INTO tbl_logs (user_id, action, date) VALUES ('" + uid + "', '" + action + "', '" + LocalDateTime.now() + "')");
-                      
-                      }else if (type.equals("User")){
-                     JOptionPane.showMessageDialog(null," Login Success!");
-                        accountDetails ad = new accountDetails();
-                        ad.setVisible(true);
-                        this.dispose();    
-                        
-                        String action = "User with ID "+uid+" logged in";
-                      dbc.insertData("INSERT INTO tbl_logs(user_id, action, date) VALUES ('" + uid + "', '" + action + "', '" + LocalDateTime.now() + "')");
-                        
-                 }else{
-                      JOptionPane.showMessageDialog(null,"No account type found, please contact the admin!");
-                      }
+                    switch (type) {
+                        case "Admin":
+                            {
+                                JOptionPane.showMessageDialog(null," Login Success!");
+                                AdminDashBoard adb = new AdminDashBoard();
+                                adb.setVisible(true);
+                                this.dispose();
+                                String action = "User with ID "+uid+" logged in";
+                                dbc.insertData("INSERT INTO tbl_logs (user_id, Action, date) VALUES ('" + uid + "', '" + action + "', '" + LocalDateTime.now() + "')");
+                                break;
+                            }
+                        case "User":
+                            {
+                                JOptionPane.showMessageDialog(null," Login Success!");
+                                userDashBoard udb = new userDashBoard();
+                                udb.setVisible(true);
+                                this.dispose();
+                                String action = "User with ID "+uid+" logged in";
+                                dbc.insertData("INSERT INTO tbl_logs (user_id, Action, date) VALUES ('" + uid + "', '" + action + "', '" + LocalDateTime.now() + "')");
+                                break;
+                            }
+                        default:
+                            JOptionPane.showMessageDialog(null,"No account type found, please contact the admin!");
+                            break;
+                    }
                 }
         }else{
         JOptionPane.showMessageDialog(null," Invalid Account!");

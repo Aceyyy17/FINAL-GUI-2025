@@ -58,6 +58,7 @@ public class AdminDashBoard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSpinner1 = new javax.swing.JSpinner();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -67,16 +68,18 @@ public class AdminDashBoard extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         account = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
+        FLname = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        logs = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         totalPatients = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        FLname = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
         close = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -161,7 +164,37 @@ public class AdminDashBoard extends javax.swing.JFrame {
         jLabel10.setText("ACCOUNT");
         account.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 0, 70, 30));
 
-        jPanel2.add(account, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 110, 30));
+        jPanel2.add(account, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 110, 30));
+
+        FLname.setFont(new java.awt.Font("Malgun Gothic", 1, 14)); // NOI18N
+        FLname.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        FLname.setText("Admin");
+        jPanel2.add(FLname, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 160, 40));
+
+        jLabel2.setFont(new java.awt.Font("Malgun Gothic", 1, 14)); // NOI18N
+        jLabel2.setText("Hello,");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 50, 40));
+
+        logs.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        logs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logsMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                logsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                logsMouseExited(evt);
+            }
+        });
+        logs.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("LOGS");
+        logs.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 0, 70, 30));
+
+        jPanel2.add(logs, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 110, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 180, 410));
 
@@ -204,24 +237,10 @@ public class AdminDashBoard extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("DASHBOARD");
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 70));
+        jLabel1.setText("ADMIN DASHBOARD");
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 560, 70));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 560, 410));
-
-        jLabel2.setFont(new java.awt.Font("Malgun Gothic", 1, 18)); // NOI18N
-        jLabel2.setText("Hello!,");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 60, 40));
-
-        FLname.setFont(new java.awt.Font("Malgun Gothic", 1, 18)); // NOI18N
-        FLname.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        FLname.setText("Admin");
-        jPanel1.add(FLname, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 200, 40));
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Patient Diagnose System");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, 350, 50));
 
         minimize.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         minimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -248,6 +267,11 @@ public class AdminDashBoard extends javax.swing.JFrame {
             }
         });
         jPanel1.add(close, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, 40, 40));
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Patient Diagnose System");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, 530, 70));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -349,6 +373,20 @@ public class AdminDashBoard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_patientsMouseClicked
 
+    private void logsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logsMouseClicked
+    LOGS log = new LOGS();
+    log.setVisible(true);
+    this.dispose();
+    }//GEN-LAST:event_logsMouseClicked
+
+    private void logsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logsMouseEntered
+       logs.setBackground(navColor);
+    }//GEN-LAST:event_logsMouseEntered
+
+    private void logsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logsMouseExited
+        logs.setBackground(HoverColor);
+    }//GEN-LAST:event_logsMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -391,6 +429,7 @@ public class AdminDashBoard extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -400,6 +439,8 @@ public class AdminDashBoard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JPanel logs;
     private javax.swing.JLabel minimize;
     private javax.swing.JPanel patients;
     private javax.swing.JLabel totalPatients;

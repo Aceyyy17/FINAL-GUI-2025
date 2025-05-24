@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
+import mainApp.loginForm;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -71,10 +72,10 @@ public class userForm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
         acc_id = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
         close = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -207,16 +208,11 @@ public class userForm extends javax.swing.JFrame {
 
         acc_id.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         acc_id.setText("ID");
-        jPanel1.add(acc_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 30, 30));
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Patient Diagnose System");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 160, -1));
+        jPanel1.add(acc_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 30, 30));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Account ID:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 80, 30));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 80, 30));
 
         minimize.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         minimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -243,6 +239,11 @@ public class userForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(close, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, 40, 40));
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Patient Diagnose System");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 420, 70));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -309,30 +310,28 @@ public class userForm extends javax.swing.JFrame {
                ResultSet rs = dbc.getData("SELECT * FROM tbl_users WHERE u_id = '"+tbl. getValueAt(rowIndex, 0)+"'");
                if(rs.next()){
                    
-                AddUserForm auf = new AddUserForm(); 
-                auf.uid.setText(""+rs.getString("u_id"));
-                auf.fname.setText(""+rs.getString("u_fname"));
-                auf.lname.setText(""+rs.getString("u_lname"));
-                auf.mail.setText(""+rs.getString("u_email"));
-                auf.uname.setText(""+rs.getString("u_username"));
-                auf.pass.setText(""+rs.getString("u_password"));
-                auf.type.setSelectedItem(""+rs.getString("u_type"));
-                auf.ustat.setSelectedItem(""+rs.getString("u_status"));
-                auf.image.setIcon(auf.ResizeImage(rs.getString("u_image"), null, auf.image));
-                auf.oldpath = rs.getString("u_image");
-                auf.path = rs.getString("u_image");
-                auf.destination = rs.getString("u_image");
-                auf.addUser.setEnabled(false);
-                auf.updateUser.setEnabled(true);
-                auf.setVisible(true);
+                updateUser ud = new updateUser();
+                ud.uid.setText(""+rs.getString("u_id"));
+                ud.fname.setText(""+rs.getString("u_fname"));
+                ud.lname.setText(""+rs.getString("u_lname"));
+                ud.mail.setText(""+rs.getString("u_email"));
+                ud.uname.setText(""+rs.getString("u_username"));
+                ud.pass.setText(""+rs.getString("u_password"));
+                ud.type.setSelectedItem(""+rs.getString("u_type"));
+                ud.ustat.setSelectedItem(""+rs.getString("u_status"));
+                ud.image.setIcon(ud.ResizeImage(rs.getString("u_image"), null, ud.image));
+                ud.oldpath = rs.getString("u_image");
+                ud.path = rs.getString("u_image");
+                ud.destination = rs.getString("u_image");       
+                ud.setVisible(true);
                 this.dispose();     
                 if(rs.getString("u_image").isEmpty()){
-                auf.select.setEnabled(true);
-                auf.remove.setEnabled(false);
+                ud.select.setEnabled(true);
+                ud.remove.setEnabled(false);
                 
                 }else{
-                auf.select.setEnabled(false);
-                auf.remove.setEnabled(true);
+                ud.select.setEnabled(false);
+                ud.remove.setEnabled(true);
 
                 }
                 
@@ -347,8 +346,17 @@ public class userForm extends javax.swing.JFrame {
     }//GEN-LAST:event_editbuttonMouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-       Session ses = Session.getInstance();
-       acc_id.setText(""+ses.getUid());
+      
+        Session ses = Session.getInstance(); 
+        if(ses.getUid() == 0){
+            JOptionPane.showMessageDialog(null, "No account, login first!");
+            loginForm lf = new loginForm();
+            lf.setVisible(true); 
+            this.dispose(); 
+        }else{     
+        acc_id.setText(""+ses.getUid());
+        }
+       
     }//GEN-LAST:event_formWindowActivated
 
     private void deletebuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deletebuttonMouseClicked

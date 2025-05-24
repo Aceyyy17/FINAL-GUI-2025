@@ -9,26 +9,12 @@ import user.userForm;
 import config.Session;
 import config.dbConnector;
 import java.awt.Color;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
+import mainApp.loginForm;
 import net.proteanit.sql.DbUtils;
 
 
@@ -119,13 +105,17 @@ public boolean idcheck() {
         jScrollPane1 = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         minimize = new javax.swing.JLabel();
         close = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -211,15 +201,10 @@ public boolean idcheck() {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 650, 410));
 
-        jLabel2.setFont(new java.awt.Font("Malgun Gothic", 1, 18)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Adding User...");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 130, 40));
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Patient Diagnose System");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 160, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 460, 70));
 
         minimize.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         minimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -279,6 +264,7 @@ public boolean idcheck() {
    
         Session ses = Session.getInstance();
         dbConnector dbc = new dbConnector();
+        
         int cuser = ses.getUid();
         if(userID.getText().isEmpty()||lname.getText().isEmpty()||fname.getText().isEmpty()||mail.getText().isEmpty()){
         JOptionPane.showMessageDialog(null, "Please select a user!");
@@ -290,8 +276,11 @@ public boolean idcheck() {
         }else{
         dbc.deleteData("DELETE FROM tbl_users WHERE u_id = '"+userID.getText()+"'");
         displayData();
+        userForm uf = new userForm();
+        uf.setVisible(true);
+        this.dispose();
         String action = "Deleted Users with ID No: " + userID.getText();
-            dbc.insertData("INSERT INTO tbl_logs (user_id, Action, date) VALUES ('" + ses.getUid() + "', '" + action + "', '" + LocalDateTime.now() + "')");
+         dbc.insertData("INSERT INTO tbl_logs (user_id, Action, date) VALUES ('" + ses.getUid() + "', '" + action + "', '" + LocalDateTime.now() + "')");
         }
 
     }//GEN-LAST:event_deleteMouseClicked
@@ -343,6 +332,15 @@ public boolean idcheck() {
         }
     }//GEN-LAST:event_closeMouseClicked
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+            Session ses = Session.getInstance(); 
+            if(ses.getUid() == 0){
+            JOptionPane.showMessageDialog(null, "No account, login first!");
+            loginForm lf = new loginForm();
+            lf.setVisible(true); 
+            this.dispose(); 
+    }//GEN-LAST:event_formWindowActivated
+    }
     /**
      * @param args the command line arguments
      */
@@ -387,7 +385,6 @@ public boolean idcheck() {
     public javax.swing.JTextField fname;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
