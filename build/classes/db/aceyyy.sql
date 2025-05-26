@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2025 at 10:51 AM
+-- Generation Time: May 26, 2025 at 09:35 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,8 +32,8 @@ CREATE TABLE `tbl_diagnose` (
   `patient_id` int(20) NOT NULL,
   `d_name` varchar(100) NOT NULL,
   `date` date NOT NULL,
-  `status` varchar(50) NOT NULL,
-  `u_id` int(20) NOT NULL
+  `status` varchar(100) NOT NULL,
+  `treatment` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -54,28 +54,21 @@ CREATE TABLE `tbl_logs` (
 --
 
 INSERT INTO `tbl_logs` (`l_id`, `Action`, `date`, `user_id`) VALUES
-(167, 'User with ID 24 logged in', '2025-05-24 15:43:33', 24),
-(168, 'User with ID 24 logged in', '2025-05-24 15:44:32', 24),
-(169, 'User with ID 24 logged in', '2025-05-24 15:51:45', 24),
-(170, 'User with ID 24 logging out', '2025-05-24 15:52:25', 24),
-(171, 'User with ID 25 logged in', '2025-05-24 15:52:43', 25),
-(172, 'User with ID 25 logging out', '2025-05-24 15:53:08', 25),
-(173, 'User with ID 25 logged in', '2025-05-24 15:53:19', 25),
-(174, 'User with ID 24 logged in', '2025-05-24 15:54:33', 24),
-(175, 'User with ID 24 logged in', '2025-05-24 16:01:19', 24),
-(176, 'User with ID 24 logged in', '2025-05-24 16:14:14', 24),
-(177, 'User with ID 24 logging out', '2025-05-24 16:20:54', 24),
-(178, 'User with ID 25 logged in', '2025-05-24 16:21:01', 25),
-(179, 'User with ID 25 logging out', '2025-05-24 16:22:12', 25),
-(180, 'User with ID 24 logged in', '2025-05-24 16:22:19', 24),
-(181, 'User with ID 24 logging out', '2025-05-24 16:22:58', 24),
-(182, 'User with ID 25 logged in', '2025-05-24 16:23:03', 25),
-(183, 'User with ID 25 logging out', '2025-05-24 16:23:39', 25),
-(184, 'User with ID 24 logged in', '2025-05-24 16:25:30', 24),
-(185, 'User with ID 24 logged in', '2025-05-24 16:35:27', 24),
-(186, 'Updated User with ID No: 24', '2025-05-24 16:35:41', 24),
-(187, 'User with ID 25 logged in', '2025-05-24 16:40:06', 25),
-(188, 'User with ID 25 logged in', '2025-05-24 16:48:56', 25);
+(194, 'User with ID 24 logged in', '2025-05-25 17:57:39', 24),
+(195, 'User with ID 24 logged in', '2025-05-25 18:00:50', 24),
+(196, 'User with ID 24 logged in', '2025-05-25 18:10:22', 24),
+(197, 'Deleted Patient with ID No.: 13', '2025-05-25 18:10:45', 24),
+(198, 'Deleted Patient with ID No.: 14', '2025-05-25 18:11:52', 24),
+(199, 'User with ID 24 logged in', '2025-05-25 18:12:52', 24),
+(200, 'User with ID 25 logged in', '2025-05-25 18:22:34', 25),
+(201, 'User with ID 25 logging out', '2025-05-25 18:22:45', 25),
+(202, 'User with ID 24 logged in', '2025-05-25 18:22:50', 24),
+(203, 'User with ID 24 logging out', '2025-05-25 18:23:00', 24),
+(204, 'User with ID 24 logged in', '2025-05-25 22:53:27', 24),
+(205, 'User with ID 24 logged in', '2025-05-25 23:01:06', 24),
+(206, 'Updated User with ID No: 24', '2025-05-25 23:01:22', 24),
+(207, 'User with ID 24 logged in', '2025-05-25 23:22:32', 24),
+(208, 'User with ID 24 logged in', '2025-05-25 23:32:43', 24);
 
 -- --------------------------------------------------------
 
@@ -98,8 +91,7 @@ CREATE TABLE `tbl_patients` (
 
 INSERT INTO `tbl_patients` (`p_id`, `p_fname`, `p_lname`, `p_pnumber`, `p_gender`, `p_address`) VALUES
 (6, 'Jhandel', 'Ababon', '0900505400', 'Female', 'Minglanilla'),
-(7, 'Mark Anthony', 'Espinosa', '0509522500', 'Male', 'Naga, Cebu'),
-(9, 'Mark Anthonyyy', 'Espinosa', '0509522500', 'Male', 'Naga, Cebu');
+(7, 'Mark Anthony', 'Espinosa', '0509522500', 'Male', 'Naga, Cebu');
 
 -- --------------------------------------------------------
 
@@ -145,7 +137,7 @@ CREATE TABLE `tbl_users` (
 --
 
 INSERT INTO `tbl_users` (`u_id`, `u_fname`, `u_lname`, `u_email`, `u_username`, `u_password`, `u_type`, `u_status`, `u_image`) VALUES
-(24, 'Ace Welman', 'Bacusss', 'Acey@gmail.com', 'Acey', '3VWxmGJQ17i0rajrZQQ0FM2y66d0Kkfra1Uj5UdPYV0=', 'Admin', 'Active', 'src/userimages/ad.png'),
+(24, 'Ace Welman', 'Bacus', 'Acey@gmail.com', 'Acey', '3VWxmGJQ17i0rajrZQQ0FM2y66d0Kkfra1Uj5UdPYV0=', 'Admin', 'Active', 'src/userimages/ad.png'),
 (25, 'Mark', 'Espinosa', 'Mark@gmail.com', 'Mark', 'MB5PYIsbI2YzCUe34Q5ZU2VferIoI4Ttd+ydolWV0OE=', 'User', 'Active', 'src/userimages/Mark.png');
 
 --
@@ -157,8 +149,7 @@ INSERT INTO `tbl_users` (`u_id`, `u_fname`, `u_lname`, `u_email`, `u_username`, 
 --
 ALTER TABLE `tbl_diagnose`
   ADD PRIMARY KEY (`diagnose_id`),
-  ADD KEY `pid` (`patient_id`),
-  ADD KEY `uid` (`u_id`);
+  ADD KEY `pid` (`patient_id`);
 
 --
 -- Indexes for table `tbl_logs`
@@ -200,13 +191,13 @@ ALTER TABLE `tbl_diagnose`
 -- AUTO_INCREMENT for table `tbl_logs`
 --
 ALTER TABLE `tbl_logs`
-  MODIFY `l_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
+  MODIFY `l_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=209;
 
 --
 -- AUTO_INCREMENT for table `tbl_patients`
 --
 ALTER TABLE `tbl_patients`
-  MODIFY `p_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `p_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_recover`
@@ -228,8 +219,7 @@ ALTER TABLE `tbl_users`
 -- Constraints for table `tbl_diagnose`
 --
 ALTER TABLE `tbl_diagnose`
-  ADD CONSTRAINT `pid` FOREIGN KEY (`patient_id`) REFERENCES `tbl_patients` (`p_id`),
-  ADD CONSTRAINT `uid` FOREIGN KEY (`u_id`) REFERENCES `tbl_users` (`u_id`);
+  ADD CONSTRAINT `pid` FOREIGN KEY (`patient_id`) REFERENCES `tbl_patients` (`p_id`);
 
 --
 -- Constraints for table `tbl_logs`

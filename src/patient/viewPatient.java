@@ -62,32 +62,25 @@ public class viewPatient extends javax.swing.JFrame {
     
     public static String pid;
      public boolean patientcheck(){
-        dbConnector dbc = new dbConnector();
-   try {
-            String query = "SELECT * FROM tbl_patients WHERE p_id = '"+ patientID.getText()+"'";
-            ResultSet resultSet = dbc.getData(query);
-            if(resultSet.next()){
-                pid= resultSet.getString("pid");
-                if(pid.equals(patientID.getText())){
-                JOptionPane.showMessageDialog(null,"This partylist already completed the application \n and cannot be deleted!");
-                patientID.setText("");
-                fn.setText("");
-                ln.setText("");
-                address.setText("");
-                }
-                 
-                return true;
-            }
-            else{
-                return false;
-            }
-            
-        } catch (SQLException ex) {
-            System.out.println(""+ex);
-            return false;
+    dbConnector dbc = new dbConnector();
+    try {
+       
+        String query = "SELECT * FROM tbl_diagnose WHERE patient_id = '"+ patientID.getText()+"'";
+        ResultSet resultSet = dbc.getData(query);
+        if(resultSet.next()){
+            JOptionPane.showMessageDialog(null,"This patient has record on other table \n and can't be deleted!");
+            patientID.setText("");
+            fn.setText("");
+            ln.setText("");
+            address.setText("");
+            return true;
         }
-     
-     }   
+    } catch (SQLException ex) {
+        System.out.println(""+ex);
+    }
+    return false; // No related record — allow deletion
+}
+
 
     
     @SuppressWarnings("unchecked")
@@ -147,12 +140,12 @@ public class viewPatient extends javax.swing.JFrame {
         jPanel2.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 100, 50));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel1.setText("User ID:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 60, 30));
+        jLabel1.setText("Patient ID:");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 80, 30));
 
         patientID.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         patientID.setText("ID");
-        jPanel2.add(patientID, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 50, 30));
+        jPanel2.add(patientID, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 50, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 180, 410));
 
@@ -263,14 +256,16 @@ public class viewPatient extends javax.swing.JFrame {
         if(patientID.getText().isEmpty()||fn.getText().isEmpty()||ln.getText().isEmpty()||address.getText().isEmpty()){
         JOptionPane.showMessageDialog(null, "Please select a Patient!");
         return;
-        }if(patientcheck()){
-            
-        }else{
-        dbc.deleteData("DELETE FROM tbl_patients WHERE p_id = '"+patientID.getText()+"'");
-        displayData();
-        String actionn = "Deleted Patient with ID No.: " + patientID.getText();
-        dbc.insertData("INSERT INTO tbl_logs (user_id, Action, date) VALUES ('" + ses.getUid() + "', '" + actionn + "', '" + LocalDateTime.now() + "')");
-        }
+        }if (patientcheck()) {
+    
+            } else {
+   
+            dbc.deleteData("DELETE FROM tbl_patients WHERE p_id = '"+patientID.getText()+"'");
+            displayData();
+            String actionn = "Deleted Patient with ID No.: " + patientID.getText();
+            dbc.insertData("INSERT INTO tbl_logs (user_id, Action, date) VALUES ('" + ses.getUid() + "', '" + actionn + "', '" + LocalDateTime.now() + "')");
+}
+
 
     }//GEN-LAST:event_deleteMouseClicked
 

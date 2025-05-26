@@ -6,9 +6,6 @@
 package user;
 
 
-import accounts.*;
-import mainApp.*;
-import admin.*;
 import config.Session;
 import java.awt.Color;
 import java.awt.Image;
@@ -18,10 +15,6 @@ import javax.swing.JOptionPane;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import javax.imageio.ImageIO;
 
 /**
@@ -33,6 +26,7 @@ public class userAccountDetails extends javax.swing.JFrame {
    
     public userAccountDetails() {
         initComponents();
+       
     }
     
     Color navColor = new Color(153,153,255);
@@ -63,7 +57,7 @@ public class userAccountDetails extends javax.swing.JFrame {
                 return getDefaultImage(label);
             }
 
-            // Calculate proportional height for the new width of the label
+         
             int newHeight = getHeightFromWidth(ImagePath, label.getWidth());
             if (newHeight <= 0) {
                 newHeight = label.getHeight();

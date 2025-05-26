@@ -12,6 +12,7 @@ import mainApp.*;
 import admin.*;
 import config.Session;
 import config.dbConnector;
+import diagnose.userAddDiagnose;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -68,6 +69,8 @@ public class userDashBoard extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         FLname = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        diagnosis = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -139,7 +142,7 @@ public class userDashBoard extends javax.swing.JFrame {
         jLabel10.setText("ACCOUNT");
         account.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 0, 70, 30));
 
-        jPanel2.add(account, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 110, 30));
+        jPanel2.add(account, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 110, 30));
 
         FLname.setFont(new java.awt.Font("Malgun Gothic", 1, 14)); // NOI18N
         FLname.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -149,6 +152,27 @@ public class userDashBoard extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Malgun Gothic", 1, 14)); // NOI18N
         jLabel2.setText("Hello,");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 50, 40));
+
+        diagnosis.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        diagnosis.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                diagnosisMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                diagnosisMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                diagnosisMouseExited(evt);
+            }
+        });
+        diagnosis.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("DIAGNOSIS");
+        diagnosis.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 0, 80, 30));
+
+        jPanel2.add(diagnosis, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 110, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 180, 410));
 
@@ -313,6 +337,20 @@ public class userDashBoard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void diagnosisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_diagnosisMouseClicked
+        userAddDiagnose ud = new userAddDiagnose();
+        ud.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_diagnosisMouseClicked
+
+    private void diagnosisMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_diagnosisMouseEntered
+        diagnosis.setBackground(navColor);
+    }//GEN-LAST:event_diagnosisMouseEntered
+
+    private void diagnosisMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_diagnosisMouseExited
+        diagnosis.setBackground(HoverColor);
+    }//GEN-LAST:event_diagnosisMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -415,6 +453,7 @@ public class userDashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel FLname;
     private javax.swing.JPanel account;
     private javax.swing.JLabel close;
+    private javax.swing.JPanel diagnosis;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -422,6 +461,7 @@ public class userDashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
