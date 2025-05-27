@@ -304,7 +304,7 @@ public class loginForm extends javax.swing.JFrame {
                                 AdminDashBoard adb = new AdminDashBoard();
                                 adb.setVisible(true);
                                 this.dispose();
-                                String action = "User with ID "+uid+" logged in";
+                                String action = "User ID: "+uid+" logged in";
                                 dbc.insertData("INSERT INTO tbl_logs (user_id, Action, date) VALUES ('" + uid + "', '" + action + "', '" + LocalDateTime.now() + "')");
                                 break;
                             }
@@ -314,7 +314,7 @@ public class loginForm extends javax.swing.JFrame {
                                 userDashBoard udb = new userDashBoard();
                                 udb.setVisible(true);
                                 this.dispose();
-                                String action = "User with ID "+uid+" logged in";
+                                String action = "User ID: "+uid+" logged in";
                                 dbc.insertData("INSERT INTO tbl_logs (user_id, Action, date) VALUES ('" + uid + "', '" + action + "', '" + LocalDateTime.now() + "')");
                                 break;
                             }

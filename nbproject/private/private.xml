@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/SCHOOL%20PURPOSE/Documents/NetBeansProjects/MAIN%20GUI/GUI-APP-2025/src/patient/patientForm.java</file>
-            <file>file:/C:/Users/SCHOOL%20PURPOSE/Documents/NetBeansProjects/MAIN%20GUI/GUI-APP-2025/src/patient/viewPatient.java</file>
-            <file>file:/C:/Users/SCHOOL%20PURPOSE/Documents/NetBeansProjects/MAIN%20GUI/GUI-APP-2025/src/user/AddUserForm.java</file>
-            <file>file:/C:/Users/SCHOOL%20PURPOSE/Documents/NetBeansProjects/MAIN%20GUI/GUI-APP-2025/src/patient/patientPage.java</file>
+            <file>file:/C:/Users/SCHOOL%20PURPOSE/Documents/NetBeansProjects/FINAL-GUI-2025/FINAL-GUI-2025/src/diagnose/addDiagnose.java</file>
+            <file>file:/C:/Users/SCHOOL%20PURPOSE/Documents/NetBeansProjects/FINAL-GUI-2025/FINAL-GUI-2025/src/diagnose/DiagnosePrinting.java</file>
+            <file>file:/C:/Users/SCHOOL%20PURPOSE/Documents/NetBeansProjects/FINAL-GUI-2025/FINAL-GUI-2025/src/diagnose/addPatientDiagnose.java</file>
+            <file>file:/C:/Users/SCHOOL%20PURPOSE/Documents/NetBeansProjects/FINAL-GUI-2025/FINAL-GUI-2025/src/diagnose/printDiagnose.java</file>
         </group>
     </open-files>
 </project-private>

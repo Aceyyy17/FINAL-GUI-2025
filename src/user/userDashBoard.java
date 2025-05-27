@@ -6,20 +6,15 @@
 package user;
 
 
-import accounts.accountDetails;
-import user.userForm;
 import mainApp.*;
-import admin.*;
 import config.Session;
 import config.dbConnector;
-import diagnose.userAddDiagnose;
+import diagnose.UserAddDiagnose;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
-import patient.patientForm;
-import patient.patientPage;
 import userAddPatient.addPatientPage;
 
 /**
@@ -338,8 +333,8 @@ public class userDashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void diagnosisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_diagnosisMouseClicked
-        userAddDiagnose ud = new userAddDiagnose();
-        ud.setVisible(true);
+        UserAddDiagnose uad = new UserAddDiagnose();
+        uad.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_diagnosisMouseClicked
 

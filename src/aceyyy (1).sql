@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2025 at 09:35 AM
+-- Generation Time: May 27, 2025 at 07:39 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -36,6 +36,15 @@ CREATE TABLE `tbl_diagnose` (
   `treatment` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tbl_diagnose`
+--
+
+INSERT INTO `tbl_diagnose` (`diagnose_id`, `patient_id`, `d_name`, `date`, `status`, `treatment`) VALUES
+(1, 6, 'asd', '2025-05-26', 'asd', 'asd'),
+(2, 6, 'aaaaaa', '2025-05-26', 'aaaaaa', 'aaaaaaaaa'),
+(3, 7, 'qweqwe', '2025-05-26', 'qweqwe', 'qweqwe');
+
 -- --------------------------------------------------------
 
 --
@@ -54,21 +63,7 @@ CREATE TABLE `tbl_logs` (
 --
 
 INSERT INTO `tbl_logs` (`l_id`, `Action`, `date`, `user_id`) VALUES
-(194, 'User with ID 24 logged in', '2025-05-25 17:57:39', 24),
-(195, 'User with ID 24 logged in', '2025-05-25 18:00:50', 24),
-(196, 'User with ID 24 logged in', '2025-05-25 18:10:22', 24),
-(197, 'Deleted Patient with ID No.: 13', '2025-05-25 18:10:45', 24),
-(198, 'Deleted Patient with ID No.: 14', '2025-05-25 18:11:52', 24),
-(199, 'User with ID 24 logged in', '2025-05-25 18:12:52', 24),
-(200, 'User with ID 25 logged in', '2025-05-25 18:22:34', 25),
-(201, 'User with ID 25 logging out', '2025-05-25 18:22:45', 25),
-(202, 'User with ID 24 logged in', '2025-05-25 18:22:50', 24),
-(203, 'User with ID 24 logging out', '2025-05-25 18:23:00', 24),
-(204, 'User with ID 24 logged in', '2025-05-25 22:53:27', 24),
-(205, 'User with ID 24 logged in', '2025-05-25 23:01:06', 24),
-(206, 'Updated User with ID No: 24', '2025-05-25 23:01:22', 24),
-(207, 'User with ID 24 logged in', '2025-05-25 23:22:32', 24),
-(208, 'User with ID 24 logged in', '2025-05-25 23:32:43', 24);
+(219, 'User ID: 25 logged in', '2025-05-26 21:33:24', 25);
 
 -- --------------------------------------------------------
 
@@ -185,13 +180,13 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_diagnose`
 --
 ALTER TABLE `tbl_diagnose`
-  MODIFY `diagnose_id` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `diagnose_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_logs`
 --
 ALTER TABLE `tbl_logs`
-  MODIFY `l_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=209;
+  MODIFY `l_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=220;
 
 --
 -- AUTO_INCREMENT for table `tbl_patients`

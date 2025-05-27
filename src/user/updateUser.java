@@ -235,7 +235,9 @@ public boolean idcheck() {
         if (found) {
             usrid = userId;
             JOptionPane.showMessageDialog(null, 
-                "Sorry, this user already has a connection\nfrom another table and cannot be deleted!");
+                    
+                    
+                "Sorry, this user already has a connection!");
             return true; // Block deletion
         } else {
             return false; // Safe to delete
@@ -570,7 +572,7 @@ public boolean idcheck() {
             dbc.updateData("UPDATE tbl_users SET u_fname = '"+fname.getText()+"', u_lname = '"+lname.getText()+"', u_email = '"+mail.getText()+"', u_username = '"+uname.getText()+"', "
                 + "u_password = '"+pass.getText()+"', u_type = '"+type.getSelectedItem()+"', "
                 + " u_status = '"+ustat.getSelectedItem()+"', u_image = '"+destination+"'  WHERE u_id = '"+uid.getText()+"'");
-            String action = "Updated User with ID No: " + uid.getText();
+            String action = "Updated User ID: " + uid.getText();
             dbc.insertData("INSERT INTO tbl_logs (user_id, Action, date) VALUES ('" + ses.getUid() + "', '" + action + "', '" + LocalDateTime.now() + "')");
 
             if(destination.isEmpty()){

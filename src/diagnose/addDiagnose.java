@@ -19,13 +19,18 @@ import java.nio.file.StandardCopyOption;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.HashMap;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 
 public class addDiagnose extends javax.swing.JFrame {
+    
+    private HashMap<String, Integer> patientMap = new HashMap<>();
 
   
     public addDiagnose() {
@@ -66,6 +71,8 @@ public class addDiagnose extends javax.swing.JFrame {
     File selectedFile;
     public String oldpath;
     public String path;
+    
+    private javax.swing.JComboBox<String> jComboBox1;
     
     public int FileExistenceChecker(String path){
       File file = new File(path);
@@ -157,11 +164,12 @@ public class addDiagnose extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         symptom = new javax.swing.JTextField();
         stat = new javax.swing.JTextField();
         treat = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        select = new javax.swing.JComboBox<>();
         minimize = new javax.swing.JLabel();
         close = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -218,32 +226,40 @@ public class addDiagnose extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Patient Symptoms:");
+        jLabel7.setText("Select Patient:");
         jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 140, 50));
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Status:");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 140, 50));
-
-        jLabel15.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("Date:");
-        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 140, 50));
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 140, 50));
 
         symptom.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jPanel3.add(symptom, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 330, 50));
+        jPanel3.add(symptom, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 330, 50));
 
         stat.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jPanel3.add(stat, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 330, 50));
+        jPanel3.add(stat, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 330, 50));
 
         treat.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jPanel3.add(treat, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 330, 50));
+        jPanel3.add(treat, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, 330, 50));
 
         jLabel16.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("Treatment:");
-        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 140, 50));
+        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 140, 50));
+
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Patient Symptoms:");
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 140, 50));
+
+        select.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        select.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                selectMouseClicked(evt);
+            }
+        });
+        jPanel3.add(select, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 220, 40));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 560, 410));
 
@@ -325,50 +341,83 @@ public class addDiagnose extends javax.swing.JFrame {
     }//GEN-LAST:event_closeMouseClicked
 
     private void addDiagnoseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addDiagnoseMouseClicked
- 
 
-        dbConnector dbc = new dbConnector();
+           
+                        dbConnector dbc = new dbConnector();
+                         String currentDate = LocalDate.now().toString();
 
-        String currentDate = LocalDate.now().toString();
+         
+            JComboBox<String> patientDropdown = new JComboBox<>();
+            HashMap<String, Integer> patientMap = new HashMap<>();
 
-        if (symptom.getText().isEmpty() || stat.getText().isEmpty() || treat.getText().isEmpty() || patientID.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "All fields including Patient ID are required!");
-        } else {
-            String query = "INSERT INTO tbl_diagnose (diagnose_id, d_name, status, treatment, date) " +
-                           "VALUES ('" + patientID.getText() + "', '" + symptom.getText() + "', '" +
-                           stat.getText() + "', '" + treat.getText() + "', '" + currentDate + "')";
-
-            if (dbc.insertData(query)) {
-                JOptionPane.showMessageDialog(null, "Diagnosis added successfully!");
-                addPatientDiagnose apd = new addPatientDiagnose();
-                apd.setVisible(true);
-                this.dispose(); 
-            } else {
-                JOptionPane.showMessageDialog(null, "Failed to add diagnose!");
+            try {
+                ResultSet rs = dbc.getData("SELECT p_id, p_fname, p_lname FROM tbl_patients");
+                while (rs.next()) {
+                    String fullName = rs.getString("p_fname") + " " + rs.getString("p_lname");
+                    int id = rs.getInt("p_id");
+                    patientDropdown.addItem(fullName);
+                    patientMap.put(fullName, id);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Failed to load patients: " + e.getMessage());
+                return;
             }
-        }
+
+          
+            int result = JOptionPane.showConfirmDialog(null, patientDropdown, 
+                    "Select Patient", JOptionPane.OK_CANCEL_OPTION);
+
+            if (result == JOptionPane.OK_OPTION) {
+                String selectedPatient = (String) patientDropdown.getSelectedItem();
+                String symptomText = symptom.getText().trim();
+                String statusText = stat.getText().trim();
+                String treatmentText = treat.getText().trim();
+
+                if (symptomText.isEmpty() || statusText.isEmpty() || treatmentText.isEmpty() || selectedPatient == null) {
+                    JOptionPane.showMessageDialog(null, "All fields including patient selection are required!");
+                } else {
+                    int patientId = patientMap.get(selectedPatient);
+
+                    String query = "INSERT INTO tbl_diagnose (patient_id, d_name, status, treatment, date) " +
+                                   "VALUES ('" + patientId + "', '" + symptomText + "', '" +
+                                   statusText + "', '" + treatmentText + "', '" + currentDate + "')";
+
+                    if (dbc.insertData(query)) {
+                        JOptionPane.showMessageDialog(null, "Diagnosis added successfully!");
+                        addPatientDiagnose apd = new addPatientDiagnose();
+                        apd.setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Failed to add diagnose!");
+                    }
+                }
+            }
 
     }//GEN-LAST:event_addDiagnoseMouseClicked
 
     private void updatePatientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updatePatientMouseClicked
-     if(symptom.getText().isEmpty() || stat.getText().isEmpty() || treat.getText().isEmpty())
-
-            {
-                JOptionPane.showMessageDialog(null, "All fields are required!");
-            }
-            else if(updateCheck()){
-                System.out.println("Duplicate is exist");
-            }
-            else{
-
+            if (symptom.getText().isEmpty() || stat.getText().isEmpty() || treat.getText().isEmpty()) {
+             JOptionPane.showMessageDialog(null, "All fields are required!");
+         } else if (updateCheck()) {
+             System.out.println("Duplicate exists");
+         } else {
+             try {
             dbConnector dbc = new dbConnector();
-            dbc.updateData("UPDATE tbl_diagnose SET d_name = '"+symptom.getText()+"', status = '"+stat.getText()+"', "
-                            + "treatment = '"+treat.getText()+"' WHERE diagnose_id = '"+patientID.getText()+"'");
- 
+            String updateQuery = "UPDATE tbl_diagnose SET d_name = '" + symptom.getText().trim() +
+                                 "', status = '" + stat.getText().trim() +
+                                 "', treatment = '" + treat.getText().trim() +
+                                 "' WHERE diagnose_id = '" + patientID.getText().trim() + "'";
+
+            dbc.updateData(updateQuery);
+
+            JOptionPane.showMessageDialog(null, "Diagnosis updated successfully!");
             addPatientDiagnose apd = new addPatientDiagnose();
             apd.setVisible(true);
             this.dispose();
-            }
+            } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Failed to update diagnosis: " + e.getMessage());
+}
+         }
     }//GEN-LAST:event_updatePatientMouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
@@ -376,6 +425,36 @@ public class addDiagnose extends javax.swing.JFrame {
         apd.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void selectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectMouseClicked
+
+            try {
+             if (select != null) {
+                 select.removeAllItems();
+             }
+
+             if (patientMap == null) {
+                 patientMap = new HashMap<>();
+             } else {
+                 patientMap.clear();
+             }
+             dbConnector dbc = new dbConnector();
+             ResultSet rs = dbc.getData("SELECT p_id, p_fname, p_lname FROM tbl_patients");
+             if (rs != null) {
+                 while (rs.next()) {
+                     String fullName = rs.getString("p_fname") + " " + rs.getString("p_lname");
+                     select.addItem(fullName);
+                     patientMap.put(fullName, rs.getInt("p_id"));
+                 }
+             } else {
+                 JOptionPane.showMessageDialog(null, "No data returned from database.");
+             }
+         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error loading patients: " + e.getMessage());
+         }
+
+     
+    }//GEN-LAST:event_selectMouseClicked
 
     /**
      * @param args the command line arguments
@@ -447,18 +526,19 @@ public class addDiagnose extends javax.swing.JFrame {
     public javax.swing.JButton addDiagnose;
     private javax.swing.JLabel close;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel minimize;
     public javax.swing.JLabel patientID;
+    private javax.swing.JComboBox<String> select;
     public javax.swing.JTextField stat;
     public javax.swing.JTextField symptom;
     public javax.swing.JTextField treat;

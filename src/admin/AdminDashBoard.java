@@ -358,7 +358,7 @@ public class AdminDashBoard extends javax.swing.JFrame {
         dbConnector dbc = new dbConnector();
          Session ses= Session.getInstance();
          
-        String action = "User with ID "+ses.getUid()+" logging out";
+        String action = "User ID: "+ses.getUid()+" logging out";
         dbc.insertData("INSERT INTO tbl_logs (user_id, Action, date) VALUES ('" +ses.getUid() + "', '" + action + "', '" + LocalDateTime.now() + "')");
         
         loginForm lf = new loginForm();

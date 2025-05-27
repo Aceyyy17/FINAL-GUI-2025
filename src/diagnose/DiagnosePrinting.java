@@ -6,8 +6,8 @@
 package diagnose;
 
 
-import java.awt.Image;
-import javax.swing.ImageIcon;
+import config.PanelPrinter;
+import javax.swing.JPanel;
 
 
 /**
@@ -22,8 +22,6 @@ public class DiagnosePrinting extends javax.swing.JFrame {
     public DiagnosePrinting() {
         initComponents();
         
-        Image img=new ImageIcon(this.getClass().getResource("/tb.jpg")).getImage();
-        this.setIconImage(img);
     }
    
   
@@ -37,192 +35,102 @@ public class DiagnosePrinting extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        page = new javax.swing.JPanel();
+        p_page = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
-        uid = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        pr = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        nm = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        st = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        ayc = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        ty = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        vio = new javax.swing.JLabel();
-        image = new javax.swing.JLabel();
-        san = new javax.swing.JLabel();
-        PR = new javax.swing.JButton();
+        pat_id = new javax.swing.JTextField();
+        p_name = new javax.swing.JTextField();
+        sym = new javax.swing.JTextField();
+        stat = new javax.swing.JTextField();
+        date = new javax.swing.JTextField();
+        treat = new javax.swing.JTextField();
+        print = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
-        jPanel1.setLayout(null);
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        page.setBackground(new java.awt.Color(255, 255, 255));
+        p_page.setBackground(new java.awt.Color(255, 255, 255));
+        p_page.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("ST. CECILIA'S COLLEGE - CEBU, INC.");
+        p_page.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 40, 400, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Poblacion Ward II, Minglanilla Cebu");
+        p_page.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 68, 400, -1));
 
         jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+        p_page.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 108, 590, 17));
 
-        jLabel5.setText("Student NO:");
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel5.setText("Patient ID:");
+        p_page.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 100, 30));
 
-        jLabel8.setText("Program:");
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel6.setText("Patient Name:");
+        p_page.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 100, 30));
 
-        jLabel10.setText(" Name:");
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel7.setText("Symptom:");
+        p_page.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 100, 30));
 
-        jLabel12.setText("Section:");
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel8.setText("Status:");
+        p_page.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, 100, 30));
 
-        jLabel14.setText("AYCODE:");
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel9.setText("Date:");
+        p_page.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 450, 100, 30));
 
-        jLabel16.setText("Violation:");
+        jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel10.setText("Treatment:");
+        p_page.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 520, 100, 30));
 
-        jLabel19.setText("Sanction:");
+        pat_id.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        p_page.add(pat_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 220, 30));
 
-        jLabel18.setText("Type:");
+        p_name.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        p_page.add(p_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 220, 30));
 
-        image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        image.setText("No image Found");
+        sym.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        p_page.add(sym, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 220, 30));
 
-        javax.swing.GroupLayout pageLayout = new javax.swing.GroupLayout(page);
-        page.setLayout(pageLayout);
-        pageLayout.setHorizontalGroup(
-            pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pageLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pageLayout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pageLayout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39))))
-            .addGroup(pageLayout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addGroup(pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pageLayout.createSequentialGroup()
-                        .addGroup(pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pageLayout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(uid, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pageLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nm, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pageLayout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(pr, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pageLayout.createSequentialGroup()
-                        .addGroup(pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addGroup(pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(st, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ayc, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(73, 73, 73))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pageLayout.createSequentialGroup()
-                        .addGroup(pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pageLayout.createSequentialGroup()
-                                .addGroup(pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(32, 32, 32)
-                                .addGroup(pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ty, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(san, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pageLayout.createSequentialGroup()
-                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(vio, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(13, 13, 13)))
-                .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
-        );
-        pageLayout.setVerticalGroup(
-            pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pageLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addGroup(pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pageLayout.createSequentialGroup()
-                        .addGroup(pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                            .addComponent(uid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nm, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pr, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(st, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ayc, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(vio, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(pageLayout.createSequentialGroup()
-                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pageLayout.createSequentialGroup()
-                                .addComponent(san, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ty, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(pageLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(110, Short.MAX_VALUE))
-        );
+        stat.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        p_page.add(stat, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, 220, 30));
 
-        jPanel1.add(page);
-        page.setBounds(100, 100, 590, 640);
+        date.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        p_page.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 450, 220, 30));
 
-        PR.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        PR.setText("PRINT");
-        PR.addActionListener(new java.awt.event.ActionListener() {
+        treat.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        p_page.add(treat, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 520, 220, 30));
+
+        print.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        print.setText("PRINT");
+        print.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PRActionPerformed(evt);
+                printActionPerformed(evt);
             }
         });
-        jPanel1.add(PR);
-        PR.setBounds(610, 70, 80, 25);
+        p_page.add(print, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 520, 90, 40));
+
+        jPanel1.add(p_page, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 630, 620));
 
         jLabel1.setBackground(new java.awt.Color(0, 255, 153));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("BACK");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -230,31 +138,25 @@ public class DiagnosePrinting extends javax.swing.JFrame {
                 jLabel1MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(630, 10, 120, 40);
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 100, 60));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 0, 760, 787));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-     
+    printDiagnose pd = new printDiagnose();   
+    pd.setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
-    private void PRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PRActionPerformed
-    
-    }//GEN-LAST:event_PRActionPerformed
+    private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
+     JPanel myPanel = new JPanel();
+     PanelPrinter pPrint = new PanelPrinter(p_page);
+     pPrint.printPanel();
+    }//GEN-LAST:event_printActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,29 +201,24 @@ public class DiagnosePrinting extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton PR;
-    public javax.swing.JLabel ayc;
-    public javax.swing.JLabel image;
+    public javax.swing.JTextField date;
     private javax.swing.JLabel jLabel1;
-    public javax.swing.JLabel jLabel10;
-    public javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     public javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    public javax.swing.JLabel nm;
-    private javax.swing.JPanel page;
-    public javax.swing.JLabel pr;
-    public javax.swing.JLabel san;
-    public javax.swing.JLabel st;
-    public javax.swing.JLabel ty;
-    public javax.swing.JLabel uid;
-    public javax.swing.JLabel vio;
+    public javax.swing.JTextField p_name;
+    private javax.swing.JPanel p_page;
+    public javax.swing.JTextField pat_id;
+    private javax.swing.JButton print;
+    public javax.swing.JTextField stat;
+    public javax.swing.JTextField sym;
+    public javax.swing.JTextField treat;
     // End of variables declaration//GEN-END:variables
 }

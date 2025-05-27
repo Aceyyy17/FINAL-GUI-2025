@@ -75,7 +75,7 @@ public boolean idcheck() {
         if (found) {
             usrid = userId;
             JOptionPane.showMessageDialog(null, 
-                "Sorry, this user already has a connection\nfrom another table and cannot be deleted!");
+                "Sorry, this user already has a connection!");
             return true; // Block deletion
         } else {
             return false; // Safe to delete
@@ -279,7 +279,7 @@ public boolean idcheck() {
         userForm uf = new userForm();
         uf.setVisible(true);
         this.dispose();
-        String action = "Deleted Users with ID No: " + userID.getText();
+        String action = "Deleted User ID: " + userID.getText();
          dbc.insertData("INSERT INTO tbl_logs (user_id, Action, date) VALUES ('" + ses.getUid() + "', '" + action + "', '" + LocalDateTime.now() + "')");
         }
 
